@@ -1,0 +1,44 @@
+{{template "base" .}}
+{{define "title"}}Signup{{end}}
+{{define "main"}}
+<form action='/user/signup' method='POST' novalidate>
+<!-- Include the CSRF token -->
+<input type='hidden' name='csrf_token' value='{{.CSRFToken}}'>
+
+{{with .Form}}
+<div>
+<label>Full name:</label>
+{{with .Errors.Get "fullname"}}
+<label class='error'>{{.}}</label>
+{{end}}
+<input type='text' name='fullname' value='{{.Get "fullname"}}'>
+</div>
+<div>
+<label>Email:</label>
+{{with .Errors.Get "email"}}
+<label class='error'>{{.}}</label>
+{{end}}
+<input type='email' name='email' value='{{.Get "email"}}'>
+</div>
+<div>
+<label>Password:</label>
+{{with .Errors.Get "password"}}
+<label class='error'>{{.}}</label>
+{{end}}
+<input type='password' name='password'>
+</div>
+    <div>
+    <label>Role:</label>
+    {{with .Errors.Get "role"}}
+    <label class='error'>{{.}}</label>
+    {{end}}
+    {{$exp := or (.Get "role") "Student"}}
+    <input type='radio' name='role' value='Student' {{if (eq $exp "Student")}}checked{{end}}> Student
+    <input type='radio' name='role' value='Teacher' {{if (eq $exp "Teacher")}}checked{{end}}> Teacher
+    </div>
+<div>
+<input type='submit' value='Signup'>
+</div>
+{{end}}
+</form>
+{{end}}

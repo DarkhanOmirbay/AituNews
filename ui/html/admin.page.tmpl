@@ -1,0 +1,26 @@
+{{template "base" .}}
+{{define "title"}}Home{{end}}
+{{define "main"}}
+<h2>Users</h2>
+{{if .Users}}
+<table>
+<tr>
+<th>ID</th>
+<th>Full name</th>
+<th>Email</th>
+<th>Role</th>
+</tr>
+{{range .Users}}
+<tr>
+<td>#{{.ID}}</td>
+<td><a href=''>{{.FullName}}</a></td>
+<td>{{.Email}}</td>
+<td>{{.Role}}</td>
+
+</tr>
+{{end}}
+</table>
+{{else}}
+<p>There's nothing to see here... yet!</p>
+{{end}}
+{{end}}

@@ -1,0 +1,23 @@
+{{template "base" .}}
+{{define "title"}}Home{{end}}
+{{define "main"}}
+<h2>Articles for students</h2>
+{{if .Articles}}
+<table>
+<tr>
+<th>Title</th>
+<th>Category</th>
+<th>ID</th>
+</tr>
+{{range .Articles}}
+<tr>
+<td><a href='/article/{{.ID}}'>{{.Title}}</a></td>
+<td>{{.Category}}</td>
+<td>#{{.ID}}</td>
+</tr>
+{{end}}
+</table>
+{{else}}
+<p>There's nothing to see here... yet!</p>
+{{end}}
+{{end}}

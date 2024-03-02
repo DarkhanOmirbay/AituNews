@@ -1,0 +1,60 @@
+{{define "base"}}
+<!doctype html>
+<html lang='en'>
+    <head>
+        <meta charset='utf-8'>
+        <title>{{template "title" .}} - Aitu News </title>
+        <!-- Link to the CSS stylesheet and favicon -->
+        <link rel='stylesheet' href='/static/css/main.css'>
+        <link rel='shortcut icon' href='https://moodle.astanait.edu.kz/pluginfile.php/1/core_admin/logocompact/300x300/1677736259/logo%20AITU%28imageonly%29.png' type='image/x-icon'>
+        <!-- Also link to some fonts hosted by Google -->
+        <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700'>
+
+            </head>
+
+<body>
+    <header>
+        <h1><a href='/'> Aitu News </a> </h1>
+
+    </header>
+
+    <nav>
+
+        <a href='/'>Home</a>
+        <a href='/students'>Students</a>
+        <a href='/teachers'>Teachers</a>
+                {{if .IsAdmin}}
+                <a href='/admin'>Admin</a>
+                 {{end}}
+        {{if .IsAuthenticated}}
+        {{if or .IsAdmin .IsTeacher}}
+            <a href='/article/create/'>Create article</a>
+        {{end}}
+        {{end}}
+
+                {{if .IsAuthenticated}}
+                <form action='/user/logout' method='POST'>
+                <!-- Include the CSRF token -->
+                <input type='hidden' name='csrf_token' value='{{.CSRFToken}}'>
+                    <button>Logout</button>
+                </form>
+                {{else}}
+                 <a href='/user/signup'>Signup</a>
+                 <a href='/user/login'>Login</a>
+                {{end}}
+
+
+    </nav>
+<main>
+{{with .Flash}}
+<div class='flash '>{{.}}</div>
+{{end}}
+    {{template "main" .}}
+    </main>
+
+    {{template "footer" .}}
+    <!-- And include the JavaScript file -->
+    <script src="/static/js/main.js" type="text/javascript"></script>
+        </body>
+</html>
+{{end}}

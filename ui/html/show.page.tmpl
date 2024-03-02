@@ -1,0 +1,20 @@
+{{ template "base" .}}
+
+{{define "title"}}Article #{{.Article.ID}}{{end}}
+
+{{define "main"}}
+{{with .Article}}
+
+    <div class='article'>
+        <div class='metadata'>
+            <strong>{{.Title}}</strong>
+            <span>#{{.ID}}</span>
+        </div>
+        <pre><code>{{.Content}}</code></pre>
+        <div class='metadata'>
+            <p>{{.Category}}</p>
+        </div>
+    </div>
+    </form>
+{{end}}
+{{end}}
